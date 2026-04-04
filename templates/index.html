@@ -17,6 +17,7 @@
             </div>
 
             <form method="POST" class="form-grid">
+
                 <div class="input-group">
                     <label>Age</label>
                     <input type="number" step="1" name="age" required value="{{ form_data.get('age', '') }}">
@@ -26,9 +27,11 @@
                     <label>Gender</label>
                     <select name="gender" required>
                         <option value="">Select</option>
-                        <option value="Female" {% if form_data.get('gender')=='Female' %}selected{% endif %}>Female</option>
+                        <option value="Female" {% if form_data.get('gender')=='Female' %}selected{% endif %}>Female
+                        </option>
                         <option value="Male" {% if form_data.get('gender')=='Male' %}selected{% endif %}>Male</option>
-                        <option value="Non-binary/Other" {% if form_data.get('gender')=='Non-binary/Other' %}selected{% endif %}>Non-binary/Other</option>
+                        <option value="Non-binary/Other" {% if form_data.get('gender')=='Non-binary/Other' %}selected{%
+                            endif %}>Non-binary/Other</option>
                     </select>
                 </div>
 
@@ -36,10 +39,14 @@
                     <label>Occupation</label>
                     <select name="occupation" required>
                         <option value="">Select</option>
-                        <option value="Student" {% if form_data.get('occupation')=='Student' %}selected{% endif %}>Student</option>
-                        <option value="Employed" {% if form_data.get('occupation')=='Employed' %}selected{% endif %}>Employed</option>
-                        <option value="Self-employed" {% if form_data.get('occupation')=='Self-employed' %}selected{% endif %}>Self-employed</option>
-                        <option value="Retired" {% if form_data.get('occupation')=='Retired' %}selected{% endif %}>Retired</option>
+                        <option value="Student" {% if form_data.get('occupation')=='Student' %}selected{% endif %}>
+                            Student</option>
+                        <option value="Employed" {% if form_data.get('occupation')=='Employed' %}selected{% endif %}>
+                            Employed</option>
+                        <option value="Self-employed" {% if form_data.get('occupation')=='Self-employed' %}selected{%
+                            endif %}>Self-employed</option>
+                        <option value="Retired" {% if form_data.get('occupation')=='Retired' %}selected{% endif %}>
+                            Retired</option>
                     </select>
                 </div>
 
@@ -47,57 +54,63 @@
                     <label>Work Mode</label>
                     <select name="work_mode" required>
                         <option value="">Select</option>
-                        <option value="Remote" {% if form_data.get('work_mode')=='Remote' %}selected{% endif %}>Remote</option>
-                        <option value="Hybrid" {% if form_data.get('work_mode')=='Hybrid' %}selected{% endif %}>Hybrid</option>
-                        <option value="In-person" {% if form_data.get('work_mode')=='In-person' %}selected{% endif %}>In-person</option>
+                        <option value="Remote" {% if form_data.get('work_mode')=='Remote' %}selected{% endif %}>Remote
+                        </option>
+                        <option value="Hybrid" {% if form_data.get('work_mode')=='Hybrid' %}selected{% endif %}>Hybrid
+                        </option>
+                        <option value="In-person" {% if form_data.get('work_mode')=='In-person' %}selected{% endif %}>
+                            In-person</option>
                     </select>
                 </div>
 
+                <!-- 🔥 FIXED SECTION -->
                 <div class="input-group">
-                    <label>Screen Time Hours</label>
-                    <input type="number" step="0.01" name="screen_time_hours" required
-                        value="{{ form_data.get('screen_time_hours', '') }}">
-                </div>
-
-                <div class="input-group">
-                    <label>Work Screen Hours</label>
+                    <label>Work Screen Time (hours/day)</label>
                     <input type="number" step="0.01" name="work_screen_hours" required
                         value="{{ form_data.get('work_screen_hours', '') }}">
                 </div>
 
                 <div class="input-group">
-                    <label>Leisure Screen Hours</label>
+                    <label>Leisure Screen Time (hours/day)</label>
                     <input type="number" step="0.01" name="leisure_screen_hours" required
                         value="{{ form_data.get('leisure_screen_hours', '') }}">
                 </div>
 
                 <div class="input-group">
-                    <label>Sleep Hours</label>
+                    <label>Sleep (hours/day)</label>
                     <input type="number" step="0.01" name="sleep_hours" required
                         value="{{ form_data.get('sleep_hours', '') }}">
                 </div>
 
                 <div class="input-group">
-                    <label>Sleep Quality (1-5)</label>
+                    <label>Sleep Quality (1–5)</label>
                     <input type="number" step="1" min="1" max="5" name="sleep_quality_1_5" required
                         value="{{ form_data.get('sleep_quality_1_5', '') }}">
                 </div>
 
                 <div class="input-group">
-                    <label>Exercise Minutes / Week</label>
+                    <label>Exercise (minutes/week)</label>
                     <input type="number" step="1" min="0" name="exercise_minutes_per_week" required
                         value="{{ form_data.get('exercise_minutes_per_week', '') }}">
                 </div>
 
                 <div class="input-group">
-                    <label>Social Hours / Week</label>
+                    <label>Social Time (hours/week)</label>
                     <input type="number" step="0.01" min="0" name="social_hours_per_week" required
                         value="{{ form_data.get('social_hours_per_week', '') }}">
+                </div>
+
+                <!-- 🔥 USER GUIDANCE -->
+                <div class="full-width">
+                    <p style="font-size:13px; color:#64748b;">
+                        Note: Screen time and sleep are per day, while exercise and social activity are per week.
+                    </p>
                 </div>
 
                 <div class="full-width">
                     <button type="submit">Predict Now</button>
                 </div>
+
             </form>
 
             {% if predictions %}
