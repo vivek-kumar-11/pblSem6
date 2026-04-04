@@ -110,35 +110,47 @@ button:hover {
     border-radius: 18px;
     background: linear-gradient(135deg, #ecfeff, #eef2ff);
     border: 1px solid #c7d2fe;
-    text-align: center;
 }
 
 .result-card h2 {
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     font-size: 24px;
+    text-align: center;
+    color: #1e1b4b;
 }
 
-.score {
-    font-size: 54px;
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.result-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+}
+
+.result-box h3 {
+    font-size: 18px;
+    color: #334155;
+    margin-bottom: 10px;
+}
+
+.result-box .score {
+    font-size: 36px;
     font-weight: 800;
     color: #4338ca;
     margin-bottom: 8px;
 }
 
-.subtitle {
-    color: #475569;
-    margin-bottom: 16px;
-}
-
-.meta p {
-    margin-bottom: 6px;
-    font-size: 15px;
-}
-
-.note {
-    margin-top: 12px;
-    font-size: 13px;
+.result-box .subtitle {
     color: #64748b;
+    font-size: 14px;
+    margin: 0;
 }
 
 .error-box {
@@ -148,6 +160,12 @@ button:hover {
     background: #fee2e2;
     color: #991b1b;
     border: 1px solid #fecaca;
+}
+
+@media (max-width: 900px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
@@ -163,7 +181,7 @@ button:hover {
         font-size: 28px;
     }
 
-    .score {
-        font-size: 42px;
+    .result-box .score {
+        font-size: 30px;
     }
 }

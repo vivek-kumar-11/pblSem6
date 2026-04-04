@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productivity Predictor</title>
+    <title>Wellness & Productivity Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -12,8 +12,8 @@
     <div class="page">
         <div class="card">
             <div class="header">
-                <h1>Productivity Predictor</h1>
-                <p>Predict productivity score using lifestyle and screen-time data</p>
+                <h1>Wellness & Productivity Predictor</h1>
+                <p>Predict stress, mental wellness, and productivity using lifestyle and screen-time data</p>
             </div>
 
             <form method="POST" class="form-grid">
@@ -26,11 +26,9 @@
                     <label>Gender</label>
                     <select name="gender" required>
                         <option value="">Select</option>
-                        <option value="Female" {% if form_data.get('gender')=='Female' %}selected{% endif %}>Female
-                        </option>
+                        <option value="Female" {% if form_data.get('gender')=='Female' %}selected{% endif %}>Female</option>
                         <option value="Male" {% if form_data.get('gender')=='Male' %}selected{% endif %}>Male</option>
-                        <option value="Non-binary/Other" {% if form_data.get('gender')=='Non-binary/Other' %}selected{%
-                            endif %}>Non-binary/Other</option>
+                        <option value="Non-binary/Other" {% if form_data.get('gender')=='Non-binary/Other' %}selected{% endif %}>Non-binary/Other</option>
                     </select>
                 </div>
 
@@ -38,14 +36,10 @@
                     <label>Occupation</label>
                     <select name="occupation" required>
                         <option value="">Select</option>
-                        <option value="Student" {% if form_data.get('occupation')=='Student' %}selected{% endif %}>
-                            Student</option>
-                        <option value="Employed" {% if form_data.get('occupation')=='Employed' %}selected{% endif %}>
-                            Employed</option>
-                        <option value="Self-employed" {% if form_data.get('occupation')=='Self-employed' %}selected{%
-                            endif %}>Self-employed</option>
-                        <option value="Retired" {% if form_data.get('occupation')=='Retired' %}selected{% endif %}>
-                            Retired</option>
+                        <option value="Student" {% if form_data.get('occupation')=='Student' %}selected{% endif %}>Student</option>
+                        <option value="Employed" {% if form_data.get('occupation')=='Employed' %}selected{% endif %}>Employed</option>
+                        <option value="Self-employed" {% if form_data.get('occupation')=='Self-employed' %}selected{% endif %}>Self-employed</option>
+                        <option value="Retired" {% if form_data.get('occupation')=='Retired' %}selected{% endif %}>Retired</option>
                     </select>
                 </div>
 
@@ -53,12 +47,9 @@
                     <label>Work Mode</label>
                     <select name="work_mode" required>
                         <option value="">Select</option>
-                        <option value="Remote" {% if form_data.get('work_mode')=='Remote' %}selected{% endif %}>Remote
-                        </option>
-                        <option value="Hybrid" {% if form_data.get('work_mode')=='Hybrid' %}selected{% endif %}>Hybrid
-                        </option>
-                        <option value="In-person" {% if form_data.get('work_mode')=='In-person' %}selected{% endif %}>
-                            In-person</option>
+                        <option value="Remote" {% if form_data.get('work_mode')=='Remote' %}selected{% endif %}>Remote</option>
+                        <option value="Hybrid" {% if form_data.get('work_mode')=='Hybrid' %}selected{% endif %}>Hybrid</option>
+                        <option value="In-person" {% if form_data.get('work_mode')=='In-person' %}selected{% endif %}>In-person</option>
                     </select>
                 </div>
 
@@ -93,12 +84,6 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Stress Level (0-10)</label>
-                    <input type="number" step="0.01" min="0" max="10" name="stress_level_0_10" required
-                        value="{{ form_data.get('stress_level_0_10', '') }}">
-                </div>
-
-                <div class="input-group">
                     <label>Exercise Minutes / Week</label>
                     <input type="number" step="1" min="0" name="exercise_minutes_per_week" required
                         value="{{ form_data.get('exercise_minutes_per_week', '') }}">
@@ -111,25 +96,33 @@
                 </div>
 
                 <div class="full-width">
-                    <button type="submit">Predict Productivity</button>
+                    <button type="submit">Predict Now</button>
                 </div>
             </form>
 
-            {% if prediction is not none %}
+            {% if predictions %}
             <div class="result-card">
-                <h2>Prediction Result</h2>
-                <div class="score">{{ prediction }}</div>
-                <p class="subtitle">Predicted Productivity Score out of 100</p>
+                <h2>Prediction Results</h2>
 
-                {% if uncertainty is not none %}
-                <div class="meta">
-                    <p><strong>Model Uncertainty:</strong> ±{{ uncertainty }}</p>
-                    <p><strong>Likely Prediction Range:</strong> {{ lower_range }} to {{ upper_range }}</p>
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h3>Stress Level</h3>
+                        <div class="score">{{ predictions['stress_level_0_10'] }}</div>
+                        <p class="subtitle">Predicted score out of 10</p>
+                    </div>
+
+                    <div class="result-box">
+                        <h3>Mental Wellness</h3>
+                        <div class="score">{{ predictions['mental_wellness_index_0_100'] }}</div>
+                        <p class="subtitle">Predicted score out of 100</p>
+                    </div>
+
+                    <div class="result-box">
+                        <h3>Productivity</h3>
+                        <div class="score">{{ predictions['productivity_0_100'] }}</div>
+                        <p class="subtitle">Predicted score out of 100</p>
+                    </div>
                 </div>
-                <p class="note">
-                    This range is estimated from variation among individual trees in the Random Forest model.
-                </p>
-                {% endif %}
             </div>
             {% endif %}
 
